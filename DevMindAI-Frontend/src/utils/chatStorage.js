@@ -6,7 +6,11 @@ function getStorageKey(userId) {
 
 function sanitizeHistory(history) {
   if (!Array.isArray(history)) return []
-  return history.filter((msg) => !msg.isLoading)
+
+  return history.filter((msg) => {
+    if (msg?.isLoading || msg?.isError) return false
+    return true
+  })
 }
 
 export function loadChat(userId) {
